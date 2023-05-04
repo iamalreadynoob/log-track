@@ -12,6 +12,7 @@ public class Tracking
     public Tracking()
     {
         //TODO: null pointer excepiton
+
         //limitSize = TextReading.getSize("data/info.log", 8);
     }
     public void process(JButton stopper)
