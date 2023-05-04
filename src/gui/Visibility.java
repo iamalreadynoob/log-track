@@ -38,5 +38,6 @@ public class Visibility implements IScenes
         Screen.langSection.setVisible(isVisible);
         Screen.themeSection.setVisible(isVisible);
         Screen.saveChanges.setVisible(isVisible);
+        Screen.backMain.setVisible(isVisible);
     }
 }
