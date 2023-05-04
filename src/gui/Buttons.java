@@ -1,8 +1,11 @@
 package gui;
 
+import fileReading.DataReading;
+import fileReading.SavfReading;
 import fileReading.TextReading;
 import fileWriting.SavfWriting;
 import fileWriting.TextWriting;
+import track.LoopThread;
 import track.Tracking;
 
 import javax.swing.*;
@@ -13,9 +16,14 @@ import java.util.ArrayList;
 public class Buttons implements IScenes
 {
     private JFrame frame;
+    private boolean isStart;
+    private LoopThread loop;
     protected Buttons(JFrame frame)
     {
         this.frame = frame;
+        isStart = true;
+
+        loop = new LoopThread();
 
         main();
         settings();
@@ -58,7 +66,26 @@ public class Buttons implements IScenes
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
-                new Tracking().process(Screen.startStop);
+                DataReading csvR = new DataReading();
+                csvR.scan("data/lang.csv");
+
+                SavfReading savfR = new SavfReading();
+                savfR.scan("data/settings.savf");
+
+                if (isStart)
+                {
+                    Screen.startStop.setText(csvR.getColumn(csvR.getHeaders().get(Integer.parseInt(savfR.getValue("lang")))).get(4));
+                    new Thread(() -> loop.start()).start();
+                    isStart = false;
+                }
+
+                else
+                {
+                    Screen.startStop.setText(csvR.getColumn(csvR.getHeaders().get(Integer.parseInt(savfR.getValue("lang")))).get(3));
+                    loop.stopLoop();
+                    isStart = true;
+                }
+
             }
         });
 

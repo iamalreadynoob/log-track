@@ -4,28 +4,28 @@ public class LoopThread extends Thread
 {
     private boolean isRun;
 
-    protected LoopThread()
+    public LoopThread()
     {
         isRun = true;
     }
+
     @Override
-    public void run() {
-        super.run();
+    public void start() {
 
         while (isRun)
         {
-            System.out.println("This is working");
+            new Tracking().process();
 
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+
         }
+
+        isRun = true;
     }
 
-    public void stopLoop()
-    {
-        isRun = false;
-    }
+    public void stopLoop() {isRun = false;}
 }
