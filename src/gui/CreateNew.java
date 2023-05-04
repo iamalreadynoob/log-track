@@ -37,5 +37,10 @@ public class CreateNew implements IScenes
         Screen.langSection = new JComboBox<>();
         Screen.backMain = new JButton();
         Screen.saveChanges = new JButton();
+        Screen.senderMailPrompt = new JTextField();
+        Screen.senderPasswordPrompt = new JTextField();
+        Screen.senderMailSection = new JTextField();
+        Screen.senderPasswordSection = new JTextField();
+        Screen.goDefault = new JButton();
     }
 }

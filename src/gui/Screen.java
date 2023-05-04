@@ -10,18 +10,23 @@ public class Screen extends JFrame
     protected static JButton startStop, goSettings;
 
     //settings scene
-    protected static JTextField frequencyPrompt, receiverPrompt, maxSizePrompt, themePrompt, languagePrompt, frequencySection, receiverSection, maxSizeSection;
+    protected static JTextField frequencyPrompt, receiverPrompt, maxSizePrompt, themePrompt, languagePrompt, frequencySection, receiverSection, maxSizeSection, senderMailPrompt, senderPasswordPrompt, senderMailSection, senderPasswordSection;
     protected static JComboBox<String> themeSection, langSection;
-    protected static JButton backMain, saveChanges;
+    protected static JButton backMain, saveChanges, goDefault;
 
     public Screen()
     {
         this.setTitle("LogTrack");
         this.setLayout(null);
-        this.setSize(600, 350);
+        this.setSize(800, 500);
 
         new CreateNew();
         new Add(this);
+        new Visibility(false).settings();
+        new AppText();
+        new Theme(this);
+        new Positions();
+        new Buttons(this);
 
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);

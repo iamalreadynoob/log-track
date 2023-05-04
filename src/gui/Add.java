@@ -39,5 +39,10 @@ public class Add implements IScenes
         frame.add(Screen.langSection);
         frame.add(Screen.backMain);
         frame.add(Screen.saveChanges);
+        frame.add(Screen.senderMailPrompt);
+        frame.add(Screen.senderMailSection);
+        frame.add(Screen.senderPasswordPrompt);
+        frame.add(Screen.senderPasswordSection);
+        frame.add(Screen.goDefault);
     }
 }
