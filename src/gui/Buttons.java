@@ -3,6 +3,7 @@ package gui;
 import fileReading.TextReading;
 import fileWriting.SavfWriting;
 import fileWriting.TextWriting;
+import track.Tracking;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -57,7 +58,7 @@ public class Buttons implements IScenes
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
-                //TODO: log job here
+                new Tracking().process(Screen.startStop);
             }
         });
 
