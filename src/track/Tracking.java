@@ -85,8 +85,7 @@ public class Tracking implements NativeKeyListener, NativeMouseInputListener {
             case 2:
                 System.out.println("both of them are listening");
                 // keyboard
-                GlobalEventDispatcher.getInstance().addGlobalMouseListener(this);
-                GlobalEventDispatcher.getInstance().addGlobalKeyListener(this);
+
 
                 break;
         }
