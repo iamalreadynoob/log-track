@@ -24,6 +24,8 @@ public class LoopThread extends Thread
             new Tracking(mouse, keyboard, both).process();
 
             try {
+
+                // TODO thread timer
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
