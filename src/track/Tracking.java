@@ -33,7 +33,12 @@ public class Tracking implements NativeKeyListener, NativeMouseInputListener {
 
     @Override
     public void nativeMouseMoved(NativeMouseEvent e) {
-        System.out.println("Mouse moved: " + e.getX() + ", " + e.getY());
+        TextWriting txt = new TextWriting();
+        String read = "Mouse moved: " + e.getX() + ", " + e.getY();
+        ArrayList<String> array = new ArrayList<>();
+        array.add(read);
+        txt.append("./data/info.log", array);
+        System.out.println(read);
     }
 
 
