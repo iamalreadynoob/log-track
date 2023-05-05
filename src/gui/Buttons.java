@@ -84,7 +84,9 @@ public class Buttons implements IScenes
 
                 if (isStart)
                 {
-                    loop = new LoopThread(selectedID);
+                    loop = new LoopThread(selectedID, frame);
+                    loop.start();
+
                     Screen.startStop.setText(csvR.getColumn(csvR.getHeaders().get(Integer.parseInt(savfR.getValue("lang")))).get(4));
                     isStart = false;
                 }

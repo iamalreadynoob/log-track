@@ -6,20 +6,18 @@ public class LoopThread
     private boolean isRun;
     private int situation;
     private Tracking tracking;
+    private  JFrame frame;
 
-    public LoopThread(int situation)
+    public LoopThread(int situation, JFrame frame)
     {
-<<<<<<< HEAD
-=======
         this.situation = situation;
+        this.frame = frame;
         isRun = true;
     }
 
-    @Override
     public void start()
     {
->>>>>>> 319a8cde6f9b2dd19235051a6133df05bbb88059
-        tracking = new Tracking(situation);
+        tracking = new Tracking(situation, frame);
         tracking.process();
         isRun = true;
     }
