@@ -28,6 +28,17 @@ public class Tracking {
         switch (situation) {
             case 0:
                 System.out.println("mouse is listening");
+<<<<<<< HEAD
+=======
+                try {
+                    GlobalScreen.registerNativeHook();
+                } catch (NativeHookException ex) {
+                    System.err.println("Failed to register native hook");
+                    System.exit(1);
+                }
+                GlobalScreen.addNativeMouseListener(new Tracking());
+                GlobalScreen.addNativeMouseMotionListener(new Tracking());
+>>>>>>> 319a8cde6f9b2dd19235051a6133df05bbb88059
 
                 break;
             case 1:
@@ -36,7 +47,27 @@ public class Tracking {
             case 2:
                 System.out.println("both of them are listening");
                 // keyboard
+                try {
+                    GlobalScreen.registerNativeHook();
+                } catch (NativeHookException e) {
+                    e.printStackTrace();
+                }
+                GlobalScreen.addNativeKeyListener(listener);
 
+<<<<<<< HEAD
+=======
+
+                // mouse
+                try {
+                    GlobalScreen.registerNativeHook();
+                } catch (NativeHookException ex) {
+                    System.err.println("Failed to register native hook");
+                    System.exit(1);
+                }
+                GlobalScreen.addNativeMouseListener(new Tracking());
+                GlobalScreen.addNativeMouseMotionListener(new Tracking());
+
+>>>>>>> 319a8cde6f9b2dd19235051a6133df05bbb88059
                 break;
         }
     }
