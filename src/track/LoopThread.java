@@ -5,23 +5,21 @@ import javax.swing.*;
 public class LoopThread extends Thread
 {
     private boolean isRun;
-    private JCheckBox mouse, keyboard, both;
+    private Tracking tracking;
 
-    public LoopThread(JCheckBox mouse, JCheckBox keyboard, JCheckBox both)
+    public LoopThread(int situation)
     {
-        this.mouse = mouse;
-        this.keyboard = keyboard;
-        this.both = both;
-
+        tracking = new Tracking(situation);
         isRun = true;
     }
 
     @Override
     public void start() {
 
+        tracking.process();
+
         while (isRun)
         {
-            new Tracking(mouse, keyboard, both).process();
 
             try {
 
@@ -36,5 +34,9 @@ public class LoopThread extends Thread
         isRun = true;
     }
 
-    public void stopLoop() {isRun = false;}
+    public void stopLoop()
+    {
+        tracking.stopListening();
+        isRun = false;
+    }
 }

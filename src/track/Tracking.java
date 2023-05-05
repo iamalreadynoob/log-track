@@ -16,15 +16,17 @@ public class Tracking implements NativeKeyListener
 
 
     private int limitSize, situation;
-    public Tracking(JCheckBox mouse, JCheckBox keyboard, JCheckBox both)
+    private NativeKeyListener listener;
+    public Tracking(int situation)
     {
-        if (mouse.isSelected())situation = 0;
-        else if (keyboard.isSelected()) situation = 1;
-        else if (both.isSelected()) situation = 2;
+        this.situation = situation;
 
+        listener = new Tracking();
         //TODO: null pointer excepiton
         //limitSize = TextReading.getSize("data/info.log", 8);
     }
+
+    public Tracking() {}
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
@@ -37,16 +39,13 @@ public class Tracking implements NativeKeyListener
     }
 
     @Override
-    public void nativeKeyReleased(NativeKeyEvent e) {
-//        System.out.println("Pressed " + NativeKeyEvent.getKeyText(e.getKeyCode()));
-    }
+    public void nativeKeyReleased(NativeKeyEvent e) {}
 
     protected void process()
     {
         switch (situation)
         {
-            case 0: System.out.println("mouse is listening");
-            break;
+            case 0: System.out.println("mouse is listening"); break;
             case 1:
 
                 System.out.println("keyboard is listening");
@@ -55,14 +54,16 @@ public class Tracking implements NativeKeyListener
                 } catch (NativeHookException e) {
                     e.printStackTrace();
                 }
-                JCheckBox mouse = new JCheckBox();
-                JCheckBox keyboard = new JCheckBox();
-                JCheckBox both = new JCheckBox();
-                GlobalScreen.addNativeKeyListener(new Tracking(mouse,keyboard,both));
+                GlobalScreen.addNativeKeyListener(listener);
                 break;
 
             case 2: System.out.println("both of them are listening"); break;
         }
+    }
+
+    protected void stopListening()
+    {
+        GlobalScreen.removeNativeKeyListener(listener);
     }
 
 }

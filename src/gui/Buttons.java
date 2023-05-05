@@ -17,13 +17,14 @@ public class Buttons implements IScenes
 {
     private JFrame frame;
     private boolean isStart;
+    private int selectedID;
     private LoopThread loop;
     protected Buttons(JFrame frame)
     {
         this.frame = frame;
         isStart = true;
 
-        loop = new LoopThread(Screen.onlyMouse, Screen.onlyKeyboard, Screen.bothThem);
+        selectedID = 3;
 
         main();
         settings();
@@ -39,6 +40,9 @@ public class Buttons implements IScenes
             {
                 Screen.onlyKeyboard.setSelected(false);
                 Screen.bothThem.setSelected(false);
+
+                if (Screen.onlyMouse.isSelected()) selectedID = 0;
+                else selectedID = 3;
             }
         });
 
@@ -48,6 +52,9 @@ public class Buttons implements IScenes
             {
                 Screen.onlyMouse.setSelected(false);
                 Screen.bothThem.setSelected(false);
+
+                if (Screen.onlyKeyboard.isSelected()) selectedID = 1;
+                else selectedID = 3;
             }
         });
 
@@ -58,6 +65,9 @@ public class Buttons implements IScenes
             {
                 Screen.onlyMouse.setSelected(false);
                 Screen.onlyKeyboard.setSelected(false);
+
+                if (Screen.bothThem.isSelected()) selectedID = 2;
+                else selectedID = 3;
             }
         });
 
@@ -74,6 +84,7 @@ public class Buttons implements IScenes
 
                 if (isStart)
                 {
+                    loop = new LoopThread(selectedID);
                     Screen.startStop.setText(csvR.getColumn(csvR.getHeaders().get(Integer.parseInt(savfR.getValue("lang")))).get(4));
                     new Thread(() -> loop.start()).start();
                     isStart = false;
