@@ -1,11 +1,18 @@
 package track;
 
+import javax.swing.*;
+
 public class LoopThread extends Thread
 {
     private boolean isRun;
+    private JCheckBox mouse, keyboard, both;
 
-    public LoopThread()
+    public LoopThread(JCheckBox mouse, JCheckBox keyboard, JCheckBox both)
     {
+        this.mouse = mouse;
+        this.keyboard = keyboard;
+        this.both = both;
+
         isRun = true;
     }
 
@@ -14,7 +21,7 @@ public class LoopThread extends Thread
 
         while (isRun)
         {
-            new Tracking().process();
+            new Tracking(mouse, keyboard, both).process();
 
             try {
                 Thread.sleep(500);

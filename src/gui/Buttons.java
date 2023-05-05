@@ -23,7 +23,7 @@ public class Buttons implements IScenes
         this.frame = frame;
         isStart = true;
 
-        loop = new LoopThread();
+        loop = new LoopThread(Screen.onlyMouse, Screen.onlyKeyboard, Screen.bothThem);
 
         main();
         settings();
