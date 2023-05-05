@@ -1,6 +1,5 @@
 package track;
 
-    
 
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
@@ -67,8 +66,8 @@ public class Tracking implements NativeKeyListener, NativeMouseInputListener {
                     System.err.println("Failed to register native hook");
                     System.exit(1);
                 }
-                GlobalScreen.addNativeMouseListener(this);
-                GlobalScreen.addNativeMouseMotionListener(this);
+                GlobalScreen.addNativeMouseListener(new Tracking());
+                GlobalScreen.addNativeMouseMotionListener(new Tracking());
 
                 break;
             case 1:
@@ -85,7 +84,23 @@ public class Tracking implements NativeKeyListener, NativeMouseInputListener {
             case 2:
                 System.out.println("both of them are listening");
                 // keyboard
+                try {
+                    GlobalScreen.registerNativeHook();
+                } catch (NativeHookException e) {
+                    e.printStackTrace();
+                }
+                GlobalScreen.addNativeKeyListener(listener);
 
+
+                // mouse
+                try {
+                    GlobalScreen.registerNativeHook();
+                } catch (NativeHookException ex) {
+                    System.err.println("Failed to register native hook");
+                    System.exit(1);
+                }
+                GlobalScreen.addNativeMouseListener(new Tracking());
+                GlobalScreen.addNativeMouseMotionListener(new Tracking());
 
                 break;
         }

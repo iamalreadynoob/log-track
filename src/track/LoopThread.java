@@ -5,17 +5,19 @@ import javax.swing.*;
 public class LoopThread extends Thread
 {
     private boolean isRun;
+    private int situation;
     private Tracking tracking;
 
     public LoopThread(int situation)
     {
-        tracking = new Tracking(situation);
+        this.situation = situation;
         isRun = true;
     }
 
     @Override
-    public void start() {
-
+    public void start()
+    {
+        tracking = new Tracking(situation);
         tracking.process();
 
         while (isRun)
