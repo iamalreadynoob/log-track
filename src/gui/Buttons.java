@@ -6,7 +6,7 @@ import fileReading.TextReading;
 import fileWriting.SavfWriting;
 import fileWriting.TextWriting;
 import track.LoopThread;
-import track.Tracking;
+
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -86,7 +86,6 @@ public class Buttons implements IScenes
                 {
                     loop = new LoopThread(selectedID);
                     Screen.startStop.setText(csvR.getColumn(csvR.getHeaders().get(Integer.parseInt(savfR.getValue("lang")))).get(4));
-                    new Thread(() -> loop.start()).start();
                     isStart = false;
                 }
 
