@@ -32,7 +32,6 @@ public class Screen extends JFrame
         new Theme(this);
         new Positions();
         new Buttons(this);
-        new Tracking(this).keyListen();
 
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);

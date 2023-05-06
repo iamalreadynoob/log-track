@@ -6,6 +6,7 @@ import fileReading.TextReading;
 import fileWriting.SavfWriting;
 import fileWriting.TextWriting;
 import track.LoopThread;
+import track.Tracking;
 
 
 import javax.swing.*;
@@ -18,13 +19,15 @@ public class Buttons implements IScenes
     private JFrame frame;
     private boolean isStart;
     private int selectedID;
+    private Tracking tracking;
 
     protected Buttons(JFrame frame)
     {
         this.frame = frame;
         isStart = true;
-
         selectedID = 3;
+
+        tracking = new Tracking(frame);
 
         main();
         settings();
@@ -84,12 +87,17 @@ public class Buttons implements IScenes
 
                 if (isStart)
                 {
+                    if (Screen.onlyMouse.isSelected()) tracking.setMouse(true);
+                    else if (Screen.onlyKeyboard.isSelected()) tracking.setKey(true);
+                    else if (Screen.bothThem.isSelected()) tracking.setBoth(true);
+
                     Screen.startStop.setText(csvR.getColumn(csvR.getHeaders().get(Integer.parseInt(savfR.getValue("lang")))).get(4));
                     isStart = false;
                 }
 
                 else
                 {
+                    tracking.kill();
                     Screen.startStop.setText(csvR.getColumn(csvR.getHeaders().get(Integer.parseInt(savfR.getValue("lang")))).get(3));
                     isStart = true;
                 }
