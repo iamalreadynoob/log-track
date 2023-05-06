@@ -111,6 +111,7 @@ public class Buttons implements IScenes
             {
                 new Visibility(false).main();
                 new Visibility(true).settings();
+                Focusing.setRequiredFocus(true);
             }
 
         });
@@ -126,6 +127,7 @@ public class Buttons implements IScenes
             {
                 new Visibility(true).main();
                 new Visibility(false).settings();
+                Focusing.setRequiredFocus(false);
             }
         });
 
