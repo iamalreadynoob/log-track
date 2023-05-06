@@ -91,6 +91,7 @@ public class Buttons implements IScenes
                     else if (Screen.onlyKeyboard.isSelected()) tracking.setKey(true);
                     else if (Screen.bothThem.isSelected()) tracking.setBoth(true);
 
+
                     Screen.startStop.setText(csvR.getColumn(csvR.getHeaders().get(Integer.parseInt(savfR.getValue("lang")))).get(4));
                     isStart = false;
                 }
