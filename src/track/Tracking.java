@@ -1,11 +1,17 @@
 package track;
 
+import java.io.File;
+import fileReading.SavfReading;
+import fileReading.TextReading;
+import fileWriting.TextWriting;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class Tracking
 {
+    public String path = "./data/info.log";
 
     private JFrame frame;
     private boolean isMouse, isKey, isBoth;
@@ -22,6 +28,7 @@ public class Tracking
         mouseListen();
     }
 
+
     public void setKey(boolean key) {isKey = key;}
     public void setMouse(boolean mouse) {isMouse = mouse;}
     public void setBoth(boolean both) {isBoth = both;}
@@ -32,6 +39,20 @@ public class Tracking
         isMouse = false;
         isBoth = false;
     }
+    public Integer checkSize() {
+    // savf read
+    SavfReading svf = new SavfReading();
+    svf.scan("./data/settings.savf");
+    Integer maxS = Integer.parseInt(svf.getValue("max_s"));
+    maxS = 1024 *1024 *maxS;
+    return maxS;
+}
+
+public Integer logCheck() {
+    File logFile = new File(path);
+    long fileSize = logFile.length();
+    return Math.toIntExact(fileSize);
+}
 
     public void keyListen()
     {
@@ -42,11 +63,34 @@ public class Tracking
             @Override
             public void keyPressed(KeyEvent keyEvent)
             {
-                System.out.println("Key pressed: " + keyEvent.getKeyChar());
+                Integer maxS = checkSize();
+                String data = "Key pressed: " + keyEvent.getKeyChar();
+                ArrayList<String> array = new ArrayList<>();
+                array.add(data);
+                TextWriting.append("./data/info.log",array);
+                System.out.println(data);
+
+                if (logCheck() > maxS) {
+                    TextWriting.delete(path,0);
+                }
+
             }
 
             @Override
-            public void keyReleased(KeyEvent keyEvent) {}
+            public void keyReleased(KeyEvent keyEvent) {
+                Integer maxS = checkSize();
+
+                String data = "Key released: " + keyEvent.getKeyChar();
+                ArrayList<String> array = new ArrayList<>();
+                array.add(data);
+                TextWriting.append("./data/info.log",array);
+                System.out.println(data);
+                System.out.println(maxS);
+
+                if (logCheck() > maxS) {
+                    TextWriting.delete(path,0);
+                }
+            }
         });
     }
 
@@ -55,7 +99,21 @@ public class Tracking
         frame.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
-               if (isMouse || isBoth) System.out.println("Mouse clicked at: " + mouseEvent.getX() + "," + mouseEvent.getY());
+                Integer maxS = checkSize();
+
+               if (isMouse || isBoth) {
+                   String data = "Mouse clicked at: " + mouseEvent.getX() + "," + mouseEvent.getY();
+                   ArrayList<String> array = new ArrayList<>();
+                   array.add(data);
+                   TextWriting.append("./data/info.log",array);
+                   System.out.println(data);
+
+
+                   if (logCheck() > maxS) {
+                       TextWriting.delete(path,0);
+                   }
+               }
+
             }
 
             @Override
@@ -87,7 +145,21 @@ public class Tracking
 
             @Override
             public void mouseMoved(MouseEvent mouseEvent) {
-                if (isMouse || isBoth) System.out.println("Mouse moved to " + mouseEvent.getX() + "," + mouseEvent.getY());
+
+                Integer maxS = checkSize();
+
+                if ((isMouse || isBoth)) {
+                    String data = "Mouse moved to " + mouseEvent.getX() + "," + mouseEvent.getY();
+                    ArrayList<String> array = new ArrayList<>();
+                    array.add(data);
+                    TextWriting.append(path,array);
+                    System.out.println(data);
+
+
+                    if (logCheck() > maxS) {
+                        TextWriting.delete(path,0);
+                    }
+                }
             }
         });
     }
