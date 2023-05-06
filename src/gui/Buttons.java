@@ -128,6 +128,7 @@ public class Buttons implements IScenes
                 new Visibility(true).main();
                 new Visibility(false).settings();
                 Focusing.setRequiredFocus(false);
+                tracking.kill();
             }
         });
 
@@ -145,8 +146,8 @@ public class Buttons implements IScenes
                 SavfWriting.change("data/settings.savf", "s_mail", Screen.senderMailSection.getText());
                 SavfWriting.change("data/settings.savf", "s_pass", Screen.senderPasswordSection.getText());
 
-                new Theme(frame);
-                new AppText();
+                frame.dispose();
+                new Screen();
             }
 
         });
@@ -159,8 +160,8 @@ public class Buttons implements IScenes
                 ArrayList<String> lines = TextReading.read("data/default.savf");
                 TextWriting.write("data/settings.savf", lines);
 
-                new Theme(frame);
-                new AppText();
+                frame.dispose();
+                new Screen();
             }
 
         });

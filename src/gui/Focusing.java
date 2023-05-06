@@ -10,6 +10,8 @@ public class Focusing
         Screen.maxSizeSection.setFocusable(focus);
         Screen.senderMailSection.setFocusable(focus);
         Screen.senderPasswordSection.setFocusable(focus);
+        Screen.themeSection.setFocusable(focus);
+        Screen.langSection.setFocusable(focus);
     }
 
 }
