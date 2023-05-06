@@ -12,16 +12,17 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class Buttons implements IScenes
-{
+public class Buttons implements IScenes {
     private JFrame frame;
     private boolean isStart;
     private int selectedID;
     private Tracking tracking;
+    public int timerVal = 0;
 
-    protected Buttons(JFrame frame)
-    {
+    protected Buttons(JFrame frame) {
         this.frame = frame;
         isStart = true;
         selectedID = 3;
@@ -32,14 +33,30 @@ public class Buttons implements IScenes
         settings();
     }
 
+    public void timerStart(int val) {
+        if (val == 1) {
+            // start timer
+            java.util.Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+                public void run() {
+                    System.out.println("SMTP function goes here!");
+                }
+            };
+
+            SavfReading svf = new SavfReading();
+            svf.scan("./data/settings.savf");
+            Integer interval = Integer.parseInt(svf.getValue("freq"));
+            interval = interval * 1000 *60;
+            timer.scheduleAtFixedRate(task, 0, interval);
+        }
+    }
+
 
     @Override
-    public void main()
-    {
+    public void main() {
         Screen.onlyMouse.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent)
-            {
+            public void actionPerformed(ActionEvent actionEvent) {
                 Screen.onlyKeyboard.setSelected(false);
                 Screen.bothThem.setSelected(false);
 
@@ -50,8 +67,7 @@ public class Buttons implements IScenes
 
         Screen.onlyKeyboard.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent)
-            {
+            public void actionPerformed(ActionEvent actionEvent) {
                 Screen.onlyMouse.setSelected(false);
                 Screen.bothThem.setSelected(false);
 
@@ -60,11 +76,9 @@ public class Buttons implements IScenes
             }
         });
 
-        Screen.bothThem.addActionListener(new ActionListener()
-        {
+        Screen.bothThem.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent)
-            {
+            public void actionPerformed(ActionEvent actionEvent) {
                 Screen.onlyMouse.setSelected(false);
                 Screen.onlyKeyboard.setSelected(false);
 
@@ -73,29 +87,29 @@ public class Buttons implements IScenes
             }
         });
 
-        Screen.startStop.addActionListener(new ActionListener()
-        {
+        Screen.startStop.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent)
-            {
+            public void actionPerformed(ActionEvent actionEvent) {
                 DataReading csvR = new DataReading();
                 csvR.scan("data/lang.csv");
 
                 SavfReading savfR = new SavfReading();
                 savfR.scan("data/settings.savf");
 
-                if (isStart)
-                {
+
+                if (isStart) {
+                    timerVal++;
+                    System.out.println(timerVal);
+                    timerStart(timerVal);
+
+
                     if (Screen.onlyMouse.isSelected()) tracking.setMouse(true);
                     else if (Screen.onlyKeyboard.isSelected()) tracking.setKey(true);
                     else if (Screen.bothThem.isSelected()) tracking.setBoth(true);
 
                     Screen.startStop.setText(csvR.getColumn(csvR.getHeaders().get(Integer.parseInt(savfR.getValue("lang")))).get(4));
                     isStart = false;
-                }
-
-                else
-                {
+                } else {
                     tracking.kill();
                     Screen.startStop.setText(csvR.getColumn(csvR.getHeaders().get(Integer.parseInt(savfR.getValue("lang")))).get(3));
                     isStart = true;
@@ -104,11 +118,9 @@ public class Buttons implements IScenes
             }
         });
 
-        Screen.goSettings.addActionListener(new ActionListener()
-        {
+        Screen.goSettings.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent)
-            {
+            public void actionPerformed(ActionEvent actionEvent) {
                 new Visibility(false).main();
                 new Visibility(true).settings();
                 Focusing.setRequiredFocus(true);
@@ -118,13 +130,10 @@ public class Buttons implements IScenes
     }
 
     @Override
-    public void settings()
-    {
-        Screen.backMain.addActionListener(new ActionListener()
-        {
+    public void settings() {
+        Screen.backMain.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent)
-            {
+            public void actionPerformed(ActionEvent actionEvent) {
                 new Visibility(true).main();
                 new Visibility(false).settings();
                 Focusing.setRequiredFocus(false);
@@ -133,11 +142,9 @@ public class Buttons implements IScenes
         });
 
 
-        Screen.saveChanges.addActionListener(new ActionListener()
-        {
+        Screen.saveChanges.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent)
-            {
+            public void actionPerformed(ActionEvent actionEvent) {
                 SavfWriting.change("data/settings.savf", "freq", Screen.frequencySection.getText());
                 SavfWriting.change("data/settings.savf", "r_mail", Screen.receiverSection.getText());
                 SavfWriting.change("data/settings.savf", "max_s", Screen.maxSizeSection.getText());
@@ -152,11 +159,9 @@ public class Buttons implements IScenes
 
         });
 
-        Screen.goDefault.addActionListener(new ActionListener()
-        {
+        Screen.goDefault.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent)
-            {
+            public void actionPerformed(ActionEvent actionEvent) {
                 ArrayList<String> lines = TextReading.read("data/default.savf");
                 TextWriting.write("data/settings.savf", lines);
 
