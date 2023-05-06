@@ -21,10 +21,15 @@ public class Tracking
             public void keyTyped(KeyEvent keyEvent) {}
 
             @Override
-            public void keyPressed(KeyEvent keyEvent) {System.out.println("Key pressed: " + keyEvent.getKeyChar());}
+            public void keyPressed(KeyEvent keyEvent) {
+                System.out.println("Key pressed: " + keyEvent.getKeyChar());}
 
             @Override
-            public void keyReleased(KeyEvent keyEvent) {}
+            public void keyReleased(KeyEvent keyEvent) {
+                System.out.println("Key released: " + keyEvent.getKeyChar());
+            }
+
+
         });
     }
 
