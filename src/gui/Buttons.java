@@ -5,6 +5,7 @@ import fileReading.SavfReading;
 import fileReading.TextReading;
 import fileWriting.SavfWriting;
 import fileWriting.TextWriting;
+import track.Mailing;
 import track.Tracking;
 
 
@@ -39,7 +40,8 @@ public class Buttons implements IScenes {
             java.util.Timer timer = new Timer();
             TimerTask task = new TimerTask() {
                 public void run() {
-                    System.out.println("SMTP function goes here!");
+                    // Mailing function
+                    Mailing mail = new Mailing();
                 }
             };
 
@@ -47,7 +49,7 @@ public class Buttons implements IScenes {
             svf.scan("./data/settings.savf");
             Integer interval = Integer.parseInt(svf.getValue("freq"));
             interval = interval * 1000 *60;
-            timer.scheduleAtFixedRate(task, 0, interval);
+            timer.scheduleAtFixedRate(task, interval, interval);
         }
     }
 
@@ -99,7 +101,6 @@ public class Buttons implements IScenes {
 
                 if (isStart) {
                     timerVal++;
-                    System.out.println(timerVal);
                     timerStart(timerVal);
 
 

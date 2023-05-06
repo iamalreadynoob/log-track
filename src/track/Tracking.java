@@ -94,7 +94,6 @@ public Integer logCheck() {
                     array.add(data);
                     TextWriting.append("./data/info.log",array);
                     System.out.println(data);
-                    System.out.println(maxS);
 
                     if (logCheck() > maxS) {
                         TextWriting.delete(path,0);
