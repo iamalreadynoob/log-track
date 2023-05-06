@@ -63,33 +63,40 @@ public Integer logCheck() {
             @Override
             public void keyPressed(KeyEvent keyEvent)
             {
-                Integer maxS = checkSize();
-                String data = "Key pressed: " + keyEvent.getKeyChar();
-                ArrayList<String> array = new ArrayList<>();
-                array.add(data);
-                TextWriting.append("./data/info.log",array);
-                System.out.println(data);
+                if (isKey || isBoth)
+                {
+                    Integer maxS = checkSize();
+                    String data = "Key pressed: " + keyEvent.getKeyChar();
+                    ArrayList<String> array = new ArrayList<>();
+                    array.add(data);
+                    TextWriting.append("./data/info.log",array);
+                    System.out.println(data);
 
-                if (logCheck() > maxS) {
-                    TextWriting.delete(path,0);
+                    if (logCheck() > maxS) {
+                        TextWriting.delete(path,0);
+                    }
                 }
-
             }
 
             @Override
             public void keyReleased(KeyEvent keyEvent) {
-                Integer maxS = checkSize();
 
-                String data = "Key released: " + keyEvent.getKeyChar();
-                ArrayList<String> array = new ArrayList<>();
-                array.add(data);
-                TextWriting.append("./data/info.log",array);
-                System.out.println(data);
-                System.out.println(maxS);
+                if (isKey || isBoth)
+                {
+                    Integer maxS = checkSize();
 
-                if (logCheck() > maxS) {
-                    TextWriting.delete(path,0);
+                    String data = "Key released: " + keyEvent.getKeyChar();
+                    ArrayList<String> array = new ArrayList<>();
+                    array.add(data);
+                    TextWriting.append("./data/info.log",array);
+                    System.out.println(data);
+                    System.out.println(maxS);
+
+                    if (logCheck() > maxS) {
+                        TextWriting.delete(path,0);
+                    }
                 }
+
             }
         });
     }
