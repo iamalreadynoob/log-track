@@ -1,6 +1,11 @@
 package gui;
 
+import track.Tracking;
+
 import javax.swing.*;
+import java.awt.event.KeyListener;
+
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class Screen extends JFrame
 {
@@ -27,11 +32,11 @@ public class Screen extends JFrame
         new Theme(this);
         new Positions();
         new Buttons(this);
+        new Tracking(this).keyListen();
 
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
     }
-
 
 }

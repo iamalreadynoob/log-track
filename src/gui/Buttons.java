@@ -18,7 +18,7 @@ public class Buttons implements IScenes
     private JFrame frame;
     private boolean isStart;
     private int selectedID;
-    private LoopThread loop;
+
     protected Buttons(JFrame frame)
     {
         this.frame = frame;
@@ -84,9 +84,6 @@ public class Buttons implements IScenes
 
                 if (isStart)
                 {
-                    loop = new LoopThread(selectedID, frame);
-                    loop.start();
-
                     Screen.startStop.setText(csvR.getColumn(csvR.getHeaders().get(Integer.parseInt(savfR.getValue("lang")))).get(4));
                     isStart = false;
                 }
@@ -94,7 +91,6 @@ public class Buttons implements IScenes
                 else
                 {
                     Screen.startStop.setText(csvR.getColumn(csvR.getHeaders().get(Integer.parseInt(savfR.getValue("lang")))).get(3));
-                    loop.stopLoop();
                     isStart = true;
                 }
 

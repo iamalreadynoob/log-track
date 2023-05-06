@@ -22,6 +22,13 @@ public class Add implements IScenes
         frame.add(Screen.bothThem);
         frame.add(Screen.startStop);
         frame.add(Screen.goSettings);
+
+        Screen.header.setFocusable(false);
+        Screen.onlyMouse.setFocusable(false);
+        Screen.onlyKeyboard.setFocusable(false);
+        Screen.bothThem.setFocusable(false);
+        Screen.startStop.setFocusable(false);
+        Screen.goSettings.setFocusable(false);
     }
 
     @Override
@@ -44,5 +51,22 @@ public class Add implements IScenes
         frame.add(Screen.senderPasswordPrompt);
         frame.add(Screen.senderPasswordSection);
         frame.add(Screen.goDefault);
+
+        Screen.frequencyPrompt.setFocusable(false);
+        Screen.receiverPrompt.setFocusable(false);
+        Screen.maxSizePrompt.setFocusable(false);
+        Screen.themePrompt.setFocusable(false);
+        Screen.languagePrompt.setFocusable(false);
+        Screen.frequencySection.setFocusable(false);
+        Screen.receiverSection.setFocusable(false);
+        Screen.maxSizeSection.setFocusable(false);
+        Screen.themeSection.setFocusable(false);
+        Screen.langSection.setFocusable(false);
+        Screen.backMain.setFocusable(false);
+        Screen.saveChanges.setFocusable(false);
+        Screen.senderMailPrompt.setFocusable(false);
+        Screen.senderMailSection.setFocusable(false);
+        Screen.senderPasswordPrompt.setFocusable(false);
+        Screen.senderPasswordSection.setFocusable(false);
     }
 }
